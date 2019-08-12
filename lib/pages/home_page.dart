@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:dio/dio.dart';
+import 'package:flutter_shop_demo/common/net/api.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -14,7 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  String test = "";
+  String test = "来了来了~";
+  TextEditingController _teController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,42 @@ class HomePageState extends State<HomePage> {
       appBar: new AppBar(
         title: new Text('百姓生活+'),
       ),
-      body: Center(child: Text(test)),
+      body: SingleChildScrollView(
+        // 防止键盘弹出把底部控件遮挡
+        child: Column(
+          children: <Widget>[
+            Center(
+                child: Text(
+              test,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            )),
+            TextField(
+              controller: _teController, // 文本输入控制器
+              decoration: InputDecoration(
+                // 输入框样式
+                contentPadding: EdgeInsets.all(10.0), //边距
+                labelText: "妹子类型",
+                helperText: "请输入需要的类型",
+              ),
+              autofocus: false, // 自动获取焦点
+            ),
+            RaisedButton(
+              onPressed: () {
+                _choose();
+              },
+              child: Text("完成"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   @override
   void initState() {
     super.initState();
-    queryData4Net();
+//    queryData4Net("初始化完毕, 开始选择吧");
   }
 
   @override
@@ -47,17 +75,28 @@ class HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
-  void queryData4Net() async {
-    try {
-      var response = await Dio().get(
-          "https://www.easy-mock.com/mock/5c60131a4bed3a6342711498/baixing/dabaojian",
-          queryParameters: {"name": "大大的高高的白白的"});
-
-      setState(() {
-        test = response.data.toString();
-      });
-    } catch (e) {
-      print(e);
+  void _choose() {
+    var input = _teController.text.toString();
+    if (input.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("提示"),
+              content: Text("输入的类型为空"),
+            );
+          });
+    } else {
+//      queryData4Net(input).then((data) {
+//        setState(() {
+//          test = data["data"]["name"].toString();
+//        });
+//      });
     }
+  }
+
+  void getContent() {
+    var formData = {'lon': '115.02932', 'lat': '35.76189'};
+    HttpManager.instance.post(servicePath['homePageContext'], formData);
   }
 }

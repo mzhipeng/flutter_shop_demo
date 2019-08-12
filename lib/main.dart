@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_demo/test_api.dart';
 import './pages/index_page.dart';
 
 void main() {
@@ -10,6 +11,7 @@ void main() {
         primarySwatch: Colors.pink,
       ),
       home: new IndexPage(),
+//      home: new TestApi(),
     ),
   );
 }

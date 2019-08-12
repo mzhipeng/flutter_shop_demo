@@ -9,11 +9,11 @@ import 'package:flutter_shop_demo/common/utils/time_utils.dart';
 ///
 
 class GlobalConfig {
-  void init() {
+  static void init() {
     initBaseUrl();
   }
 
-  void initBaseUrl() {
+  static void initBaseUrl() {
 //    const serviceUrl= 'http://v.jspang.com:8088/baixing/';
 //const serviceUrl= 'http://test.baixingliangfan.cn/baixing/';
     HttpManager.instance.init(new HttpOptionsModel(

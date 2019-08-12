@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import 'common/net/api.dart';
+import 'package:flutter_shop_demo/common/net/api.dart';
 
 /// create by MZP 2019-08-12 15:12
 ///

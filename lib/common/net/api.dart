@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
-import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
 
 /// create by DDYX 2019-08-09 10:34
 ///
@@ -41,6 +42,8 @@ class HttpManager {
     _dio.options.connectTimeout = options.connectTimeout;
     _dio.options.receiveTimeout = options.receiveTimeout;
     _dio.options.headers = options.headers;
+    _dio.options.contentType =
+        ContentType.parse("application/x-www-form-urlencoded");
   }
 
   Future get() async {

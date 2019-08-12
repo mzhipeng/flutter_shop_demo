@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_shop_demo/common/global_config.dart';
 
 // pages
 import 'home_cart_page.dart';
@@ -42,6 +43,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   void initState() {
+    GlobalConfig.init();
     currentPage = bottomPageItem[currentIndex];
     super.initState();
   }

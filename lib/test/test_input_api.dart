@@ -28,10 +28,10 @@ class HomePageState extends State<HomePage> {
           children: <Widget>[
             Center(
                 child: Text(
-              homePageContent,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            )),
+                  homePageContent,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                )),
             TextField(
               controller: _teController, // 文本输入控制器
               decoration: InputDecoration(
@@ -43,7 +43,9 @@ class HomePageState extends State<HomePage> {
               autofocus: false, // 自动获取焦点
             ),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                _choose();
+              },
               child: Text("完成"),
             ),
           ],
@@ -54,9 +56,8 @@ class HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getContent();
     super.initState();
-
+    getContent();
   }
 
   @override
@@ -74,14 +75,28 @@ class HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
+  void _choose() {
+    var input = _teController.text.toString();
+    if (input.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("提示"),
+              content: Text("输入的类型为空"),
+            );
+          });
+    } else {
+//      queryData4Net(input).then((data) {
+//        setState(() {
+//          test = data["data"]["name"].toString();
+//        });
+//      });
+    }
+  }
+
   void getContent() {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
-    HttpManager.instance
-        .post(servicePath['homePageContext'], formData)
-        .then((data) {
-      setState(() {
-        homePageContent = data.toString();
-      });
-    });
+    HttpManager.instance.post(servicePath['homePageContext'], formData);
   }
 }

@@ -43,7 +43,6 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   void initState() {
-    GlobalConfig.init();
     currentPage = bottomPageItem[currentIndex];
     super.initState();
   }
@@ -55,6 +54,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalConfig.init(context);
     return new Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
       body: currentPage,

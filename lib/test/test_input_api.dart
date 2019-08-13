@@ -97,6 +97,6 @@ class HomePageState extends State<HomePage> {
 
   void getContent() {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
-    HttpManager.instance.post(servicePath['homePageContext'], formData);
+    HttpManager.instance.post(url_home_bannerContext, formData);
   }
 }

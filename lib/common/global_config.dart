@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+///
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/utils/time_utils.dart';
 
@@ -9,8 +12,10 @@ import 'package:flutter_shop_demo/common/utils/time_utils.dart';
 ///
 
 class GlobalConfig {
-  static void init() {
+
+  static void init(BuildContext context) {
     initBaseUrl();
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
   }
 
   static void initBaseUrl() {

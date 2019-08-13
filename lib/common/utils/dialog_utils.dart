@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class DialogUtils {
 
   /// 显示简单的提示类型对话框
-  void showHint(BuildContext context, String content) {
+  static void showHint(BuildContext context, String content) {
     showDialog(
         context: context,
         builder: (context) {

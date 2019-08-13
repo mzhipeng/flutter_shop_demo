@@ -25,13 +25,11 @@ const httpHeaders_JiKe = {
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
 };
 
-const servicePath = {
-  'homePageContext': 'wxmini/homePageContent', // 商家首页信息
-  'homePageBelowConten': 'wxmini/homePageBelowConten', //商城首页热卖商品拉取
-  'getCategory': 'wxmini/getCategory', //商品类别信息
-  'getMallGoods': 'wxmini/getMallGoods', //商品分类的商品列表
-  'getGoodDetailById': 'wxmini/getGoodDetailById', //商品详细信息列表
-};
+const url_home_bannerContext = 'wxmini/homePageContent'; // 商家首页信息
+const homePageBelowConten = 'wxmini/homePageBelowConten'; //商城首页热卖商品拉取
+const getCategory = 'wxmini/getCategory'; //商品类别信息
+const getMallGoods = 'wxmini/getMallGoods'; //商品分类的商品列表
+const getGoodDetailById = 'wxmini/getGoodDetailById'; //商品详细信息列表
 
 class HttpManager {
   Dio _dio = new Dio();

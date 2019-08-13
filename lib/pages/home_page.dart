@@ -43,20 +43,25 @@ class HomePageState extends State<HomePage> {
             var shopownerImgPath = data['data']['shopInfo']['leaderImage'];
             var shopownerPhone = data['data']['shopInfo']['leaderPhone'];
 
-            return Column(
-              children: <Widget>[
-                HomePageSwiper(
-                  itemList: data["data"]["slides"] as List,
-                ),
-                GridViewImgWithText(
-                  items: data["data"]["category"] as List,
-                ),
-                Image.network(advertesPicture),
-                HomePageShopowner(
-                  imgPath: shopownerImgPath,
-                  phone: shopownerPhone,
-                ),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  HomePageSwiper(
+                    itemList: data["data"]["slides"] as List,
+                  ),
+                  GridViewImgWithText(
+                    items: data["data"]["category"] as List,
+                  ),
+                  Image.network(advertesPicture),
+                  HomePageShopowner(
+                    imgPath: shopownerImgPath,
+                    phone: shopownerPhone,
+                  ),
+                  HomePageRecommend(
+                    items: data["data"]["recommend"] as List,
+                  ),
+                ],
+              ),
             );
           } else {
             return Center(

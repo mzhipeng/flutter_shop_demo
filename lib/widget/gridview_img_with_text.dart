@@ -17,7 +17,7 @@ class GridViewImgWithText extends BaseStatelessWidget {
     return Container(
       padding: EdgeInsets.all(4),
       height: h(320),
-      child: new GridView.count(
+      child: GridView.count(
         // 创建几列
         crossAxisCount: 5,
         // Axis.horizontal表示横向滑动，scrollDirection: Axis.vertical表示纵向滑动

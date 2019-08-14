@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop_demo/common/utils/url_utils.dart';
 
 ///
@@ -68,14 +69,13 @@ class HomePageRecommend extends BaseStatelessWidget {
   /// 推荐商品 标题
   Widget _createTitle() {
     return Container(
-      height: 50,
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
               // 设置边界, 底部高度为0.5 //颜色灰色
-              bottom: BorderSide(width: 0.5, color: Colors.black12))),
+              bottom: BorderSide(width: 1, color: Colors.black12))),
       child: Text(
         "商品推荐",
         style: TextStyle(color: Colors.pinkAccent),
@@ -90,11 +90,10 @@ class HomePageRecommend extends BaseStatelessWidget {
       child: Container(
         width: w(250),
         height: h(330),
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: Colors.white,
-            border:
-                Border(left: BorderSide(color: Colors.black12, width: 0.5))),
+            border: Border(left: BorderSide(color: Colors.black12, width: 1))),
         child: Column(
           children: <Widget>[
             Image.network(items[index]["image"]),
@@ -116,7 +115,7 @@ class HomePageRecommend extends BaseStatelessWidget {
     return Container(
       height: h(330),
       child: ListView.builder(
-        padding: new EdgeInsets.all(8),
+        padding: new EdgeInsets.all(4),
         scrollDirection: Axis.horizontal, // 设置水平滚动
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
@@ -135,6 +134,79 @@ class HomePageRecommend extends BaseStatelessWidget {
           _createTitle(),
           _createScrollRecommend(),
         ],
+      ),
+    );
+  }
+}
+
+/// 首页商品列表-头部
+class HomePageItemHeader extends BaseStatelessWidget {
+  final String pictureUrl;
+
+  HomePageItemHeader({this.pictureUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      child: Image.network(pictureUrl),
+    );
+  }
+}
+
+/// 首页商品列表-item
+class HomePageItem extends BaseStatelessWidget {
+  final List goodsList;
+
+  HomePageItem({this.goodsList});
+
+  /// 左边标题
+  Widget _createDefaultItems() {
+    return Row(
+      children: <Widget>[
+        _createItem(goodsList[3]),
+        _createItem(goodsList[4]),
+      ],
+    );
+  }
+
+  /// 列表头部
+  Widget _createHeaderItem() {
+    return Row(
+      children: <Widget>[
+        _createItem(goodsList[0]),
+        Column(
+          children: <Widget>[
+            _createItem(goodsList[1]),
+            _createItem(goodsList[2]),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// 商品信息
+  Widget _createItem(Map goods) {
+    return Container(
+      width: screenHalfDpW,
+      child: InkWell(
+        onTap: () {},
+        child: Image.network(goods["image"]),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Container(
+//        height: h(750),
+        child: Column(
+          children: <Widget>[
+            _createHeaderItem(),
+            _createDefaultItems(),
+          ],
+        ),
       ),
     );
   }

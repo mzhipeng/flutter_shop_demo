@@ -19,7 +19,8 @@ class IndexPage extends StatefulWidget {
   _IndexPageState createState() => _IndexPageState();
 }
 
-class _IndexPageState extends State<IndexPage> {
+class _IndexPageState extends State<IndexPage>
+    with AutomaticKeepAliveClientMixin {
   /// 底部按钮
   final List<BottomNavigationBarItem> bottomItem = [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text("首页")),
@@ -31,7 +32,7 @@ class _IndexPageState extends State<IndexPage> {
         icon: Icon(CupertinoIcons.profile_circled), title: Text("会员中心")),
   ];
 
-  final List bottomPageItem = [
+  final List<Widget> bottomPageItem = [
     HomePage(),
     HomeCategoryPage(),
     HomeCartPage(),
@@ -57,7 +58,10 @@ class _IndexPageState extends State<IndexPage> {
     GlobalConfig.init(context);
     return new Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentIndex,
+        children: bottomPageItem,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
@@ -70,4 +74,7 @@ class _IndexPageState extends State<IndexPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

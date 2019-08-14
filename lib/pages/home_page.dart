@@ -43,6 +43,13 @@ class HomePageState extends State<HomePage> {
             var shopownerImgPath = data['data']['shopInfo']['leaderImage'];
             var shopownerPhone = data['data']['shopInfo']['leaderPhone'];
 
+            String itemHeaderPic1 =
+                data['data']['floor1Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+            String itemHeaderPic2 =
+                data['data']['floor2Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+            String itemHeaderPic3 =
+                data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -59,6 +66,12 @@ class HomePageState extends State<HomePage> {
                   ),
                   HomePageRecommend(
                     items: data["data"]["recommend"] as List,
+                  ),
+                  HomePageItemHeader(
+                    pictureUrl: itemHeaderPic1,
+                  ),
+                  HomePageItem(
+                    goodsList: data['data']['floor1'] as List,
                   ),
                 ],
               ),

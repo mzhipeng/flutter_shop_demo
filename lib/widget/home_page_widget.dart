@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+///
+import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/utils/url_utils.dart';
 
 ///
 import 'package:flutter_swiper/flutter_swiper.dart';
-
-///
-import 'package:flutter_shop_demo/common/base/base_widget.dart';
 
 /// create by MZP 2019-08-13 10:38
 ///
@@ -139,7 +138,7 @@ class HomePageRecommend extends BaseStatelessWidget {
   }
 }
 
-/// 首页商品列表-头部
+/// 首页推荐商品列表-头部
 class HomePageItemHeader extends BaseStatelessWidget {
   final String pictureUrl;
 
@@ -154,7 +153,7 @@ class HomePageItemHeader extends BaseStatelessWidget {
   }
 }
 
-/// 首页商品列表-item
+/// 首页推荐商品列表-item
 class HomePageItem extends BaseStatelessWidget {
   final List goodsList;
 
@@ -209,5 +208,101 @@ class HomePageItem extends BaseStatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// 首页底部商品
+class HomePageHotItem extends BaseStatefulWidget {
+  @override
+  HomePageHotItemState createState() => new HomePageHotItemState();
+}
+
+class HomePageHotItemState extends BaseState<HomePageHotItem> {
+  int currentPage = 1;
+  List<Map> goodsList = [];
+
+  Widget hotItemTitle = Container(
+    margin: EdgeInsets.all(8),
+    alignment: Alignment.center,
+    color: Colors.transparent,
+    child: Text("火爆专区"),
+  );
+
+  Widget _createHotItem() {
+    if (goodsList.length > 0) {
+      List<Widget> widgetList = goodsList.map((it) {
+        return InkWell(
+          onTap: () {},
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(8),
+            width: screenHalfDpW,
+            child: Column(
+              children: <Widget>[
+                Image.network(it["image"]),
+                Text(
+                  it["name"],
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.pinkAccent, fontSize: 26),
+                ),
+                new Row(
+                  children: [
+                    Text("￥${it["mallPrice"]}"),
+                    Text(
+                      "￥${it["price"]}",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList();
+
+      return Wrap(
+        spacing: 2,
+        children: widgetList,
+      );
+    }
+    return Text("内容位空");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        hotItemTitle,
+//        _createHotItem(),
+      ],
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(HomePageHotItem oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 }

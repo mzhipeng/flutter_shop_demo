@@ -97,6 +97,17 @@ class HomePageState extends State<HomePage> {
 
   void getContent() {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
-    HttpManager.instance.post(url_home_bannerContext, formData);
+    HttpManager.instance.post(url_home_bannerContext, data: formData);
+  }
+
+  Future getHomeItemContent() {
+    var formData = {'lon': '115.02932', 'lat': '35.76189'};
+    return HttpManager.instance
+        .post(url_home_bannerContext, data: formData)
+        .then((data) {
+      setState(() {
+        homePageContent = data.toString();
+      });
+    });
   }
 }

@@ -26,7 +26,7 @@ const httpHeaders_JiKe = {
 };
 
 const url_home_bannerContext = 'wxmini/homePageContent'; // 商家首页信息
-const homePageBelowConten = 'wxmini/homePageBelowConten'; //商城首页热卖商品拉取
+const url_home_goods = 'wxmini/homePageBelowConten'; //商城首页热卖商品
 const getCategory = 'wxmini/getCategory'; //商品类别信息
 const getMallGoods = 'wxmini/getMallGoods'; //商品分类的商品列表
 const getGoodDetailById = 'wxmini/getGoodDetailById'; //商品详细信息列表
@@ -48,7 +48,7 @@ class HttpManager {
 //    _dio.options.contentType
   }
 
-  Future post(String path, data) async {
+  Future post(String path, {data}) async {
     try {
       var response = await _dio.post(path, data: data);
       if (response.statusCode == 200) {

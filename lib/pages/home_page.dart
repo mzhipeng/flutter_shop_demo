@@ -25,6 +25,8 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   String homePageContent = "来了来了~";
   TextEditingController _teController = TextEditingController();
+  int currentPage = 1;
+  List<Map> goodsList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,18 @@ class HomePageState extends State<HomePage> {
                   HomePageItem(
                     goodsList: data['data']['floor1'] as List,
                   ),
+                  HomePageItemHeader(
+                    pictureUrl: itemHeaderPic2,
+                  ),
+                  HomePageItem(
+                    goodsList: data['data']['floor2'] as List,
+                  ),
+                  HomePageItemHeader(
+                    pictureUrl: itemHeaderPic3,
+                  ),
+                  HomePageItem(
+                    goodsList: data['data']['floor3'] as List,
+                  ),
                 ],
               ),
             );
@@ -106,18 +120,20 @@ class HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
+  /// 获取首页宣传内容
   Future getBannerContent() {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
-    return HttpManager.instance.post(url_home_bannerContext, formData);
+    return HttpManager.instance.post(url_home_bannerContext, data: formData);
   }
 
-  Future getHomeItemContent() {
-    var formData = {'lon': '115.02932', 'lat': '35.76189'};
+  /// 获取首页商品列表
+  Future getHomeItemList() {
     return HttpManager.instance
-        .post(url_home_bannerContext, formData)
-        .then((data) {
+        .post(url_home_goods, data: {"page": currentPage}).then((it) {
+      var data = json.decode(it.data.toString());
       setState(() {
-        homePageContent = data.toString();
+        goodsList.addAll(data["data"] as List<Map>);
+        currentPage++;
       });
     });
   }

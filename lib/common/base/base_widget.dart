@@ -8,7 +8,8 @@ import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
 ///
 /// @author: mzp
 ///
-abstract class BaseStatelessWidget extends StatelessWidget {
+///
+class Base {
   showHint(BuildContext context, String content) {
     DialogUtils.showHint(context, content);
   }
@@ -26,32 +27,25 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   w(double width) => ScreenUtil.instance.setWidth(width);
 
   double get screenW => ScreenUtil.screenWidth;
+
   double get screenDpW => ScreenUtil.screenWidthDp;
 
   double get screenH => ScreenUtil.screenHeight;
+
   double get screenDpH => ScreenUtil.screenHeightDp;
 
   double get screenHalfW => screenW * 0.5;
+
   double get screenHalfDpW => screenDpW * 0.5;
 
   double get screenHalfH => screenH * 0.5;
+
   double get screenHalfDpH => screenDpH * 0.5;
 }
 
-abstract class BaseStatefulWidget extends StatefulWidget {
-  showHint(BuildContext context, String content) {
-    DialogUtils.showHint(context, content);
-  }
+///
+abstract class BaseStatelessWidget extends StatelessWidget with Base {}
 
-  h(double height) => ScreenUtil.instance.setHeight(height);
+abstract class BaseStatefulWidget extends StatefulWidget with Base {}
 
-  w(double width) => ScreenUtil.instance.setWidth(width);
-
-  double get screenW => ScreenUtil.screenWidth;
-
-  double get screenH => ScreenUtil.screenHeight;
-
-  double get screenHalfW => screenW * 0.5;
-
-  double get screenHalfH => screenH * 0.5;
-}
+abstract class BaseState<T extends StatefulWidget> extends State with Base {}

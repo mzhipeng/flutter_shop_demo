@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 ///
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
+import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/utils/url_utils.dart';
 
 ///
@@ -77,7 +80,7 @@ class HomePageRecommend extends BaseStatelessWidget {
               bottom: BorderSide(width: 1, color: Colors.black12))),
       child: Text(
         "商品推荐",
-        style: TextStyle(color: Colors.pinkAccent),
+        style: TextStyle(color: Cols.app_main),
       ),
     );
   }
@@ -211,10 +214,31 @@ class HomePageItem extends BaseStatelessWidget {
   }
 }
 
+typedef OnCall = Function();
+
 /// 首页底部商品
 class HomePageHotItem extends BaseStatefulWidget {
+
+  final OnCall onCall;
+
+  int currentPage = 1;
+
+  HomePageHotItem({this.currentPage, this.onCall});
+
+  HomePageHotItemState homePageHotItemState;
+
   @override
-  HomePageHotItemState createState() => new HomePageHotItemState();
+  HomePageHotItemState createState() {
+    homePageHotItemState = new HomePageHotItemState();
+    return homePageHotItemState;
+  }
+
+  void onLoad() {
+    if (homePageHotItemState != null) {
+      currentPage++;
+      homePageHotItemState.getHomeItemList(currentPage);
+    }
+  }
 }
 
 class HomePageHotItemState extends BaseState<HomePageHotItem> {
@@ -225,7 +249,10 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
     margin: EdgeInsets.all(8),
     alignment: Alignment.center,
     color: Colors.transparent,
-    child: Text("火爆专区"),
+    child: Text(
+      "火爆专区",
+      style: TextStyle(color: Cols.app_main),
+    ),
   );
 
   Widget _createHotItem() {
@@ -235,8 +262,8 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
           onTap: () {},
           child: Container(
             color: Colors.white,
-            padding: EdgeInsets.all(8),
-            width: screenHalfDpW,
+            padding: EdgeInsets.all(4),
+            width: screenHalfDpW - 8,
             child: Column(
               children: <Widget>[
                 Image.network(it["image"]),
@@ -244,13 +271,15 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
                   it["name"],
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: Colors.pinkAccent, fontSize: 26),
+                  style: TextStyle(color: Colors.pinkAccent, fontSize: sp(26)),
                 ),
                 new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("￥${it["mallPrice"]}"),
                     Text(
                       "￥${it["price"]}",
+//                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey,
                         decoration: TextDecoration.lineThrough,
@@ -269,7 +298,7 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
         children: widgetList,
       );
     }
-    return Text("内容位空");
+    return Text("");
   }
 
   @override
@@ -277,32 +306,19 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
     return Column(
       children: <Widget>[
         hotItemTitle,
-//        _createHotItem(),
+        _createHotItem(),
       ],
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(HomePageHotItem oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+  /// 获取首页商品列表
+  void getHomeItemList(int currentPage) {
+    HttpManager.instance
+        .post(url_home_goods, data: {"page": currentPage}).then((it) {
+      List<Map> dataList = (it['data'] as List).cast();
+      setState(() {
+        goodsList.addAll(dataList);
+      });
+    });
   }
 }

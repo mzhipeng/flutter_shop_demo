@@ -18,6 +18,10 @@ class GridViewImgWithText extends BaseStatelessWidget {
       padding: EdgeInsets.all(4),
       height: h(320),
       child: GridView.count(
+        // false 只有具有足够内容的用户才能滚动视图。
+//        primary: false,
+        // 禁止滚动
+        physics: NeverScrollableScrollPhysics(),
         // 创建几列
         crossAxisCount: 5,
         // Axis.horizontal表示横向滑动，scrollDirection: Axis.vertical表示纵向滑动

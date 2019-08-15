@@ -1,15 +1,14 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+
+/// widget
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_shop_demo/common/base/base_widget.dart';
+import 'package:flutter_shop_demo/widget/home_page_widget.dart';
 import 'package:flutter_shop_demo/widget/gridview_img_with_text.dart';
 
-///
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-///
+/// app common
 import 'package:flutter_shop_demo/common/net/api.dart';
-import 'package:flutter_shop_demo/widget/home_page_widget.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -17,14 +16,14 @@ import 'package:flutter_shop_demo/widget/home_page_widget.dart';
 ///
 /// @author: mzp
 ///
-class HomePage extends StatefulWidget {
+class HomePage extends BaseStatefulWidget {
   @override
   HomePageState createState() => new HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
-  String homePageContent = "来了来了~";
+class HomePageState extends BaseState<HomePage> {
   TextEditingController _teController = TextEditingController();
+  EasyRefreshController _refreshConl = EasyRefreshController();
   int currentPage = 1;
   List<Map> goodsList = [];
 
@@ -38,7 +37,7 @@ class HomePageState extends State<HomePage> {
         future: getBannerContent(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var data = json.decode(snapshot.data.toString());
+            var data = snapshot.data;
             var advertesPicture =
                 data['data']['advertesPicture']['PICTURE_ADDRESS'];
 
@@ -52,8 +51,22 @@ class HomePageState extends State<HomePage> {
             String itemHeaderPic3 =
                 data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
 
-            return SingleChildScrollView(
-              child: Column(
+            return EasyRefresh(
+              footer: ClassicalFooter(
+                loadText: "上拉加载",
+                loadReadyText: "释放加载",
+                loadingText: "正在加载…",
+                loadedText: "加载完成",
+                loadFailedText: "加载失败",
+                noMoreText: "没有更多了",
+                infoText: "更新时间为%T",
+              ),
+              controller: _refreshConl,
+              onLoad: () {
+                currentPage++;
+                return getHomeItemList(currentPage);
+              },
+              child: ListView(
                 children: <Widget>[
                   HomePageSwiper(
                     itemList: data["data"]["slides"] as List,
@@ -87,6 +100,7 @@ class HomePageState extends State<HomePage> {
                   HomePageItem(
                     goodsList: data['data']['floor3'] as List,
                   ),
+                  _createHomePageHotItem(),
                 ],
               ),
             );
@@ -127,14 +141,82 @@ class HomePageState extends State<HomePage> {
   }
 
   /// 获取首页商品列表
-  Future getHomeItemList() {
+  Future getHomeItemList(int currentPage) {
     return HttpManager.instance
         .post(url_home_goods, data: {"page": currentPage}).then((it) {
-      var data = json.decode(it.data.toString());
+      printLog(it.toString());
+      List<Map> dataList = (it['data'] as List).cast();
       setState(() {
-        goodsList.addAll(data["data"] as List<Map>);
-        currentPage++;
+        goodsList.addAll(dataList);
       });
     });
+  }
+
+  /// 创建首页底部商品数据
+  Widget _createHomePageHotItem() {
+    return Column(
+      children: <Widget>[
+        hotItemTitle,
+        _createHotItem(),
+      ],
+    );
+  }
+
+  /// 商品底部item标题
+  Widget hotItemTitle = Container(
+    margin: EdgeInsets.all(8),
+    alignment: Alignment.center,
+    color: Colors.transparent,
+    child: Text(
+      "火爆专区",
+      style: TextStyle(color: Cols.app_main),
+    ),
+  );
+
+  /// 商品底部item列表
+  Widget _createHotItem() {
+    if (goodsList.length > 0) {
+      List<Widget> widgetList = goodsList.map((it) {
+        return InkWell(
+          onTap: () {},
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(4),
+            width: screenHalfDpW - 8,
+            child: Column(
+              children: <Widget>[
+                Image.network(it["image"]),
+                Text(
+                  it["name"],
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.pinkAccent, fontSize: sp(26)),
+                ),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("￥${it["mallPrice"]}"),
+                    Text(
+                      "￥${it["price"]}",
+//                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList();
+
+      return Wrap(
+        spacing: 2,
+        children: widgetList,
+      );
+    }
+    return Text("");
   }
 }

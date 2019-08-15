@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+///
+export 'package:flutter_shop_demo/res/index_res.dart';
+///
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
 
@@ -26,6 +29,8 @@ class Base {
 
   w(double width) => ScreenUtil.instance.setWidth(width);
 
+  sp(double fontSize) => ScreenUtil.instance.setSp(fontSize);
+
   double get screenW => ScreenUtil.screenWidth;
 
   double get screenDpW => ScreenUtil.screenWidthDp;
@@ -41,6 +46,13 @@ class Base {
   double get screenHalfH => screenH * 0.5;
 
   double get screenHalfDpH => screenDpH * 0.5;
+
+  printLog(Object o){
+    print("");
+    print("=========================================================START");
+    print(o);
+    print("=========================================================END");
+  }
 }
 
 ///

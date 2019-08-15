@@ -22,7 +22,7 @@ class HomePage extends BaseStatefulWidget {
 }
 
 class HomePageState extends BaseState<HomePage> {
-  TextEditingController _teController = TextEditingController();
+//  TextEditingController _teController = TextEditingController();
   EasyRefreshController _refreshConl = EasyRefreshController();
   int currentPage = 1;
   List<Map> goodsList = [];

@@ -17,6 +17,7 @@ class HomeCartPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MyText(),
             MyBtn(),
@@ -47,7 +48,7 @@ class MyBtn extends StatelessWidget {
         onPressed: () {
           p.increment();
         },
-        child: Text("+"),
+        child: Text("+ 1"),
       ),
     );
   }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-///
+/// index
 export 'package:flutter_shop_demo/res/index_res.dart';
-///
+export 'package:flutter_shop_demo/provide/index_provide.dart';
+/// app common
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
 

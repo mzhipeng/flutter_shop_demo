@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_demo/provide/home_provide.dart';
-import 'package:flutter_shop_demo/test/test_api.dart';
+
 import './pages/index_page.dart';
-import 'package:provide/provide.dart';
+import 'provide/index_provide.dart';
 
 void main() {
   final providers = Providers()
-    ..provide(Provider.function((context) => HomePageCarProvide(0)));
+    ..provide(Provider.function((context) => HomePageCarProvide(0)))
+    ..provide(Provider.function((context) => HomePageCategoryProvide([])));
 
   runApp(
     ProviderNode(

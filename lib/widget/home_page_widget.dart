@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 ///
@@ -115,7 +113,7 @@ class HomePageRecommend extends BaseStatelessWidget {
   /// 推荐商品 列表 - 横向滚动
   Widget _createScrollRecommend() {
     return Container(
-      height: h(330),
+      height: h(340),
       child: ListView.builder(
         padding: new EdgeInsets.all(4),
         scrollDirection: Axis.horizontal, // 设置水平滚动
@@ -130,7 +128,7 @@ class HomePageRecommend extends BaseStatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: h(380),
+      height: h(390),
       child: Column(
         children: <Widget>[
           _createTitle(),

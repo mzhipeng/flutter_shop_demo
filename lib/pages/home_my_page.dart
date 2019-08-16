@@ -19,6 +19,7 @@ class HomeMyPage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Provide<HomePageCarProvide>(
               builder: (context, child, p) {
@@ -29,7 +30,7 @@ class HomeMyPage extends StatelessWidget {
               onPressed: () {
                 homePageCarProvide.decrement();
               },
-              child: Text("减 1 "),
+              child: Text("- 1"),
             ),
           ],
         ),

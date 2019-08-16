@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/model/home_page_category_model.dart';
+import 'package:flutter_shop_demo/widget/home_page_category.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -16,10 +17,12 @@ class HomeCategoryPage extends BaseStatefulWidget {
 
 class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
   List<CategoryDataList> categoryDataList = [];
-  List<BxMallSubDto> categoryRightDataList = [];
+  HomePageCategoryProvide _categoryProvide;
+  int _checkedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    _categoryProvide = Provide.value<HomePageCategoryProvide>(context);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('分类'),
@@ -29,8 +32,8 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
           _createLeftList(),
           Column(
             children: <Widget>[
-              _createRightTitle(),
-              _createRightList(),
+              CategoryRightTitle(_categoryProvide),
+              CategoryRightContent()
             ],
           )
         ],
@@ -44,11 +47,12 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
     super.initState();
   }
 
-  @override
-  void reassemble() {
-    queryData();
-    super.reassemble();
-  }
+//
+//  @override
+//  void reassemble() {
+//    queryData();
+//    super.reassemble();
+//  }
 
   void queryData() {
     HttpManager.instance.post(url_home_category).then((it) {
@@ -57,6 +61,10 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
         categoryDataList.clear();
         categoryDataList.addAll(data.data);
       });
+      if (_categoryProvide != null) {
+        _categoryProvide
+            .refreshRightTitleList(categoryDataList[0].bxMallSubDtoList);
+      }
     });
   }
 
@@ -68,19 +76,20 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
       child: ListView.builder(
         itemCount: categoryDataList.length,
         itemBuilder: (BuildContext context, int index) {
+          bool isCheckedIndex = _checkedIndex == index;
           return InkWell(
             onTap: () {
+              _categoryProvide.refreshRightTitleList(
+                  categoryDataList[index].bxMallSubDtoList);
               setState(() {
-                categoryRightDataList.clear();
-                categoryRightDataList
-                    .addAll(categoryDataList[index].bxMallSubDtoList);
+                _checkedIndex = index;
               });
             },
             child: Container(
                 height: h(100),
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isCheckedIndex ? Cols.gray : Colors.white,
                     border:
                         Border(bottom: BorderSide(width: 1, color: Cols.gray))),
                 padding: EdgeInsets.only(left: 10),
@@ -92,57 +101,5 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
         },
       ),
     );
-  }
-
-  Widget _createRightTitle() {
-    double rightWidth = (screenDpW - w(180)) * 0.5;
-
-    if (categoryRightDataList.length > 0) {
-      return ListView(
-        children: <Widget>[
-          Wrap(
-            spacing: 2,
-            children: categoryRightDataList.map((it) {
-              return Container(
-                width: rightWidth,
-                height: 200,
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(it.mallSubName),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      );
-    }
-
-    return Text("空");
-  }
-
-  Widget _createRightList() {
-    double rightWidth = (screenDpW - w(180)) * 0.5;
-
-    if (categoryRightDataList.length > 0) {
-      return ListView(
-        children: <Widget>[
-          Wrap(
-            spacing: 2,
-            children: categoryRightDataList.map((it) {
-              return Container(
-                width: rightWidth,
-                height: 200,
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(it.mallSubName),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      );
-    }
-
-    return Text("空");
   }
 }

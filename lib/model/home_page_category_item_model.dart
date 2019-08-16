@@ -14,7 +14,7 @@ class HomeCategoryItemModel {
       : code = map["code"],
         message = map["message"],
         goodsList =
-            List<CategoryGoods>.from(map["data"].map((it) => CategoryGoods.fromJsonMap(it)));
+            List<CategoryGoods>.from((map["data"] ?? []).map((it) => CategoryGoods.fromJsonMap(it)));
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

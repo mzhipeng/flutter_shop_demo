@@ -78,7 +78,7 @@ class HomePageRecommend extends BaseStatelessWidget {
               bottom: BorderSide(width: 1, color: Colors.black12))),
       child: Text(
         "商品推荐",
-        style: TextStyle(color: Cols.app_main),
+        style: TextStyle(color: ResColors.app_main),
       ),
     );
   }
@@ -249,7 +249,7 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
     color: Colors.transparent,
     child: Text(
       "火爆专区",
-      style: TextStyle(color: Cols.app_main),
+      style: TextStyle(color: ResColors.app_main),
     ),
   );
 

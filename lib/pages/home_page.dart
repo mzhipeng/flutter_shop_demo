@@ -1,14 +1,13 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 
 /// widget
-import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_shop_demo/common/base/base_widget.dart';
+import 'package:flutter_shop_demo/widget/easy_refresh_diy.dart';
 import 'package:flutter_shop_demo/widget/home_page_widget.dart';
 import 'package:flutter_shop_demo/widget/gridview_img_with_text.dart';
 
 /// app common
 import 'package:flutter_shop_demo/common/net/api.dart';
+import 'package:flutter_shop_demo/common/base/base_widget.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -52,15 +51,7 @@ class HomePageState extends BaseState<HomePage> {
                 data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
 
             return EasyRefresh(
-              footer: ClassicalFooter(
-                loadText: "上拉加载",
-                loadReadyText: "释放加载",
-                loadingText: "正在加载…",
-                loadedText: "加载完成",
-                loadFailedText: "加载失败",
-                noMoreText: "没有更多了",
-                infoText: "更新时间为%T",
-              ),
+              footer: MyFooter(),
               controller: _refreshConl,
               onLoad: () {
                 currentPage++;
@@ -169,7 +160,7 @@ class HomePageState extends BaseState<HomePage> {
     color: Colors.transparent,
     child: Text(
       "火爆专区",
-      style: TextStyle(color: Cols.app_main),
+      style: TextStyle(color: ResColors.app_main),
     ),
   );
 

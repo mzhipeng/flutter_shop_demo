@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+/// common
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
-import 'package:flutter_shop_demo/model/home_page_category_model.dart';
+/// widget
 import 'package:flutter_shop_demo/widget/home_page_category.dart';
+/// model
+import 'package:flutter_shop_demo/model/home_page_category_model.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -19,10 +22,16 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
   List<CategoryDataList> categoryDataList = [];
   HomePageCategoryProvide _categoryProvide;
   int _checkedIndex = 0;
+  CategoryRightTitle categoryRightTitle;
 
   @override
   Widget build(BuildContext context) {
     _categoryProvide = Provide.value<HomePageCategoryProvide>(context);
+    var categoryRightContent = CategoryRightContent(_categoryProvide);
+    categoryRightTitle = CategoryRightTitle(_categoryProvide, () {
+      categoryRightContent.jumpToTop();
+    });
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('分类'),
@@ -31,10 +40,7 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
         children: <Widget>[
           _createLeftList(),
           Column(
-            children: <Widget>[
-              CategoryRightTitle(_categoryProvide),
-              CategoryRightContent()
-            ],
+            children: <Widget>[categoryRightTitle, categoryRightContent],
           )
         ],
       ),
@@ -64,6 +70,8 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
       if (_categoryProvide != null) {
         _categoryProvide
             .refreshRightTitleList(categoryDataList[0].bxMallSubDtoList);
+        categoryRightTitle.queryData(
+            true, categoryDataList[0].bxMallSubDtoList[0]);
       }
     });
   }
@@ -71,7 +79,7 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
   Widget _createLeftList() {
     return Container(
       decoration: BoxDecoration(
-          border: Border(right: BorderSide(color: Cols.gray, width: 1))),
+          border: Border(right: BorderSide(color: ResColors.gray, width: 1))),
       width: w(180),
       child: ListView.builder(
         itemCount: categoryDataList.length,
@@ -81,6 +89,8 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
             onTap: () {
               _categoryProvide.refreshRightTitleList(
                   categoryDataList[index].bxMallSubDtoList);
+              categoryRightTitle.queryData(
+                  true, categoryDataList[index].bxMallSubDtoList[0]);
               setState(() {
                 _checkedIndex = index;
               });
@@ -89,9 +99,9 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
                 height: h(100),
                 alignment: Alignment.centerLeft,
                 decoration: BoxDecoration(
-                    color: isCheckedIndex ? Cols.gray : Colors.white,
-                    border:
-                        Border(bottom: BorderSide(width: 1, color: Cols.gray))),
+                    color: isCheckedIndex ? ResColors.gray : Colors.white,
+                    border: Border(
+                        bottom: BorderSide(width: 1, color: ResColors.gray))),
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                   categoryDataList[index].mallCategoryName,

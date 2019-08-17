@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_shop_demo/common/global_config.dart';
 
-// pages
+/// pages
 import 'home_cart_page.dart';
 import 'home_category_page.dart';
 import 'home_my_page.dart';
@@ -55,6 +55,7 @@ class _IndexPageState extends State<IndexPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     GlobalConfig.init(context);
     return new Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// @author: mzp
 /// 
 
-class Cols {
+class ResColors {
   static const Color app_main = Color(0xFF007BFA);
   static const Color app_main_dark = Color(0xFF007BFA);
   static const Color app_accent_primary = Color(0xFFF50057);

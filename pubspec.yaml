@@ -37,6 +37,8 @@ dependencies:
   flutter_easyrefresh: ^2.0.2
   # 状态管理
   provide: ^1.0.2
+  # toast
+  fluttertoast: ^3.1.0
 
 dev_dependencies:
   flutter_test:

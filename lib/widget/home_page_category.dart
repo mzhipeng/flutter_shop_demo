@@ -250,7 +250,11 @@ class CategoryRightContent extends BaseStatelessWidget {
         .post(url_home_category_goods, data: data)
         .then((it) {
       var data = HomeCategoryItemModel.fromJsonMap(it);
-      _homePageCategoryProvide.onLoadRightItemList(data.goodsList);
+      if (data.goodsList.isEmpty) {
+        show("没有更多数据了");
+      } else {
+        _homePageCategoryProvide.onLoadRightItemList(data.goodsList);
+      }
     });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_demo/provide/home_provide.dart';
-import 'package:provide/provide.dart';
+import 'package:flutter_shop_demo/provide/index_provide.dart';
 
 /// create by DDYX 2019-08-08 16:51
 ///
@@ -11,7 +11,7 @@ import 'package:provide/provide.dart';
 class HomeMyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var homePageCarProvide = Provide.value<HomePageCarProvide>(context);
+    var homePageCarProvide = Provider.of<HomePageCarProvide>(context);
 
     return new Scaffold(
       appBar: new AppBar(
@@ -21,8 +21,8 @@ class HomeMyPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Provide<HomePageCarProvide>(
-              builder: (context, child, p) {
+            Consumer<HomePageCarProvide>(
+              builder: (context, p, child) {
                 return Text("${p.value}");
               },
             ),

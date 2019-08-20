@@ -26,7 +26,7 @@ class HomeCategoryPageState extends BaseState<HomeCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    _categoryProvide = Provide.value<HomePageCategoryProvide>(context);
+    _categoryProvide = Provider.of<HomePageCategoryProvide>(context);
     var categoryRightContent = CategoryRightContent(_categoryProvide);
     categoryRightTitle = CategoryRightTitle(_categoryProvide, () {
       categoryRightContent.jumpToTop();

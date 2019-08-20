@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+
 ///
 import 'package:fluro/fluro.dart';
+
 /// index
 import './pages/index_page.dart';
 import 'provide/index_provide.dart';
+import 'package:flutter_shop_demo/provide/providers.dart';
 
 void main() {
-  final providers = Providers()
-    ..provide(Provider.function((context) => HomePageCarProvide(0)))
-    ..provide(Provider.function((context) => HomePageCategoryProvide([])));
+
   var roter = Router();
 
   runApp(
-    ProviderNode(
-      providers: providers,
+    MultiProvider(
+      providers: getProviders(),
       child: new MaterialApp(
         title: '百姓生活+',
         debugShowCheckedModeBanner: false, // 显示debug模式

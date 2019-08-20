@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_demo/provide/home_provide.dart';
-import 'package:provide/provide.dart';
+import 'package:provider/provider.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -32,7 +32,7 @@ class MyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Provide<HomePageCarProvide>(builder: (context, child, provide) {
+      child: Consumer<HomePageCarProvide>(builder: (context, provide, child) {
         return Text("${provide.value}");
       }),
     );
@@ -42,7 +42,7 @@ class MyText extends StatelessWidget {
 class MyBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final p = Provide.value<HomePageCarProvide>(context);
+    final p = Provider.of<HomePageCarProvide>(context);
     return Container(
       child: RaisedButton(
         onPressed: () {

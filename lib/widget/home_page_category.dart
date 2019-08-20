@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// widget
-import 'easy_refresh_diy.dart';
-
 /// common
 import '../common/base/base_widget.dart';
 import '../common/net/api.dart';
-
+import '../model/home_page_category_item_model.dart';
 /// model
 import '../model/home_page_category_model.dart';
-import '../model/home_page_category_item_model.dart';
+/// widget
+import 'easy_refresh_diy.dart';
 
 /// create by MZP 2019-08-16 16:01
 ///
@@ -46,8 +44,8 @@ class CategoryRightTitle extends BaseStatelessWidget {
               queryData(true, selectTitle);
               _clickedListener();
             },
-            child: Provide<HomePageCategoryProvide>(
-              builder: (context, child, p) {
+            child: Consumer<HomePageCategoryProvide>(
+              builder: (context, p, child) {
                 bool isAll = p.rightSelectIndex == -1;
                 return Text(
                   "全部",
@@ -62,8 +60,8 @@ class CategoryRightTitle extends BaseStatelessWidget {
         ),
         Container(
           width: screenDpW - w(280),
-          child: Provide<HomePageCategoryProvide>(
-            builder: (context, child, p) {
+          child: Consumer<HomePageCategoryProvide>(
+            builder: (context, p, child) {
               return ListView.builder(
                 scrollDirection: Axis.horizontal, // 设置水平滚动
                 itemCount: p.categoryRightTitleList.length,
@@ -136,7 +134,7 @@ class CategoryRightContent extends BaseStatelessWidget {
     return Expanded(
       child: Container(
         width: screenDpW - w(180),
-        child: Provide<HomePageCategoryProvide>(builder: (context, child, p) {
+        child: Consumer<HomePageCategoryProvide>(builder: (context, p, child) {
           bool isEmpty = p.categoryGoodsList.length == 0;
 //          jumpToTop();
           return isEmpty

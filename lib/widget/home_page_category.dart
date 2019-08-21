@@ -46,8 +46,8 @@ class CategoryRightTitle extends BaseStatelessWidget {
               queryData(true, selectTitle);
               _clickedListener();
             },
-            child: Provide<HomePageCategoryProvide>(
-              builder: (context, child, p) {
+            child: Consumer<HomePageCategoryProvide>(
+              builder: (context, p, child) {
                 bool isAll = p.rightSelectIndex == -1;
                 return Text(
                   "全部",
@@ -62,8 +62,8 @@ class CategoryRightTitle extends BaseStatelessWidget {
         ),
         Container(
           width: screenDpW - w(280),
-          child: Provide<HomePageCategoryProvide>(
-            builder: (context, child, p) {
+          child: Consumer<HomePageCategoryProvide>(
+            builder: (context, p, child) {
               return ListView.builder(
                 scrollDirection: Axis.horizontal, // 设置水平滚动
                 itemCount: p.categoryRightTitleList.length,
@@ -136,7 +136,7 @@ class CategoryRightContent extends BaseStatelessWidget {
     return Expanded(
       child: Container(
         width: screenDpW - w(180),
-        child: Provide<HomePageCategoryProvide>(builder: (context, child, p) {
+        child: Consumer<HomePageCategoryProvide>(builder: (context, p, child) {
           bool isEmpty = p.categoryGoodsList.length == 0;
 //          jumpToTop();
           return isEmpty

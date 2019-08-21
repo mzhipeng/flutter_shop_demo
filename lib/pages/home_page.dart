@@ -9,6 +9,9 @@ import 'package:flutter_shop_demo/widget/gridview_img_with_text.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 
+/// page
+import 'detail/goods_detail.dart';
+
 /// create by DDYX 2019-08-08 16:49
 ///
 /// app 首页
@@ -46,9 +49,9 @@ class HomePageState extends BaseState<HomePage> {
             String itemHeaderPic1 =
                 data['data']['floor1Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
             String itemHeaderPic2 =
-                data['data']['floor2Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+                data['data']['floor2Pic']['PICTURE_ADDRESS']; /*楼层2的标题图片*/
             String itemHeaderPic3 =
-                data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+                data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层3的标题图片*/
 
             return EasyRefresh(
               footer: MyFooter(),
@@ -169,7 +172,9 @@ class HomePageState extends BaseState<HomePage> {
     if (goodsList.length > 0) {
       List<Widget> widgetList = goodsList.map((it) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            GoodsDetail.start(context, it["goodsId"]);
+          },
           child: Container(
             color: Colors.white,
             padding: EdgeInsets.all(4),

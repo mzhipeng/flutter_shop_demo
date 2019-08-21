@@ -36,7 +36,8 @@ dependencies:
   # 下拉上拉
   flutter_easyrefresh: ^2.0.2
   # 状态管理
-  provide: ^1.0.2
+  #  provide: ^1.0.2
+  provider: "^3.1.0"
   # toast
   fluttertoast: ^3.1.0
   # 页面路由

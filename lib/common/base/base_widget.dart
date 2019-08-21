@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-
 /// index
 export 'package:flutter_shop_demo/res/index_res.dart';
 export 'package:flutter_shop_demo/provide/index_provide.dart';
-
+export 'package:flutter_shop_demo/router/index_router.dart';
 /// app common
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../app.dart';
+export 'package:flutter_shop_demo/common/app.dart';
 import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
+/// utils
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+/// widget
+import 'package:flutter_shop_demo/widget/spinkit/fading_circle.dart';
+
+import 'base_widget.dart';
 
 /// create by MZP 2019-08-13 16:42
 ///
 ///
 ///
-/// @author: mzp
 ///
 ///
 class Base {
@@ -21,13 +26,30 @@ class Base {
     DialogUtils.showHint(context, content);
   }
 
-  showProgress(BuildContext context, String content) {
-    DialogUtils.showHint(context, content);
+  showProgress({String msg = "正在加载中..."}) {
+    DialogUtils.showProgress(msg);
   }
 
-  dismiss(BuildContext context, String content) {
-    DialogUtils.showHint(context, content);
+  dismissProgress() {
+    DialogUtils.dismissProgress();
   }
+
+  ///----------------------------------------------------
+
+  /// 页面跳转
+
+  Future navigateTo(BuildContext context, String path,
+      {Map<String, String> params}) {
+    return App.navigateTo(context, path, params: params);
+  }
+
+  void pop(BuildContext context) {
+    App.pop(context);
+  }
+
+  ///----------------------------------------------------
+
+  ///----------------------------------------------------
 
   h(double height) => ScreenUtil.instance.setHeight(height);
 
@@ -59,9 +81,15 @@ class Base {
   double get safeH =>
       safeContentH - kToolbarHeight - kBottomNavigationBarHeight;
 
+  ///----------------------------------------------------
+
   Widget get emptyCenterWidget => Center(
         child: Text("内容空"),
       );
+
+  Widget get emptyLoadingWidget => Center(
+    child: SpinKitFadingCircle(color: ResColors.text_dark),
+  );
 
   /// msg：提示的文字，String类型。
   /// toastLength: 提示的样式，主要是长度，有两个值可以选择：Toast.LENGTH_SHORT ：短模式，就是比较短。Toast.LENGTH_LONG : 长模式，就是比较长。

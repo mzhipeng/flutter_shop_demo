@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// spinkit
+import 'spinkit/ring.dart'; //
+import 'spinkit/fading_circle.dart'; //
+///
+import 'package:flutter_shop_demo/res/res_colors.dart';
+
 String _dialogMessage = "Loading...";
 enum ProgressDialogType { Normal, Download }
 
@@ -8,6 +14,7 @@ ProgressDialogType _progressDialogType = ProgressDialogType.Normal;
 double _progress = 0.0;
 
 bool _isShowing = false;
+bool _canCancel = true;
 
 class ProgressDialog {
   _MyDialog _dialog;
@@ -35,6 +42,10 @@ class ProgressDialog {
     debugPrint("Old message: $_dialogMessage, New Message: $message");
     _dialogMessage = message;
     _dialog.update();
+  }
+
+  void canCancel(bool canCancel) {
+    _canCancel = canCancel;
   }
 
   bool isShowing() {
@@ -101,49 +112,65 @@ class _MyDialogState extends State<_MyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 100.0,
-        child: Row(children: <Widget>[
-          const SizedBox(width: 15.0),
-          SizedBox(
-            width: 60.0,
-            child: Image.asset(
-              'assets/double_ring_loading_io.gif',
-              package: 'progress_dialog',
-            ),
-          ),
-          const SizedBox(width: 15.0),
-          Expanded(
-            child: _progressDialogType == ProgressDialogType.Normal
-                ? Text(_dialogMessage,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
+    return WillPopScope(
+      onWillPop: () async {
+        return Future.value(_canCancel);
+      },
+      child: SizedBox(
+          height: 100.0,
+          child: Row(children: <Widget>[
+            const SizedBox(width: 15.0),
+            SizedBox(
+                width: 60.0,
+                child: SpinKitRing(
+                  color: ResColors.app_main,
+                  lineWidth: 4,
+                  duration: Duration(milliseconds: 900),
+                )
+//            Image.asset(
+//              'assets/double_ring_loading_io.gif',
+//              package: 'progress_dialog',
+//            ),
+                ),
+            const SizedBox(width: 15.0),
+            Expanded(
+              child: _progressDialogType == ProgressDialogType.Normal
+                  ? Text(
+                      _dialogMessage,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
                         color: Colors.black,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w700))
-                : Stack(
-                    children: <Widget>[
-                      Positioned(
-                        child: Text(_dialogMessage,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w700)),
-                        top: 35.0,
+                        fontSize: 18.0,
+//                      fontWeight: FontWeight.w700,
                       ),
-                      Positioned(
-                        child: Text("$_progress/100",
+                    )
+                  : Stack(
+                      children: <Widget>[
+                        Positioned(
+                          child: Text(
+                            _dialogMessage,
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w400)),
-                        bottom: 15.0,
-                        right: 15.0,
-                      ),
-                    ],
-                  ),
-          )
-        ]));
+                              color: Colors.black,
+                              fontSize: 18.0,
+//                            fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          top: 35.0,
+                        ),
+                        Positioned(
+                          child: Text("$_progress/100",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w400)),
+                          bottom: 15.0,
+                          right: 15.0,
+                        ),
+                      ],
+                    ),
+            )
+          ])),
+    );
   }
 }
 
@@ -162,31 +189,36 @@ class MessageBox {
       context: buildContext,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text('$title'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-          content: SizedBox(
-            height: 45.0,
-            child: Center(
-              child: Row(
-                children: <Widget>[
-                  SizedBox(width: 10.0),
-                  Expanded(
-                    child: Text(
-                      message,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black, fontSize: 18.0),
+        return WillPopScope(
+          onWillPop: () async {
+            return Future.value(_canCancel);
+          },
+          child: CupertinoAlertDialog(
+            title: Text('$title'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+            content: SizedBox(
+              height: 45.0,
+              child: Center(
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(width: 10.0),
+                    Expanded(
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 18.0),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10.0),
-                ],
+                    SizedBox(width: 10.0),
+                  ],
+                ),
               ),
             ),
           ),

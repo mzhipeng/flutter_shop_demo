@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_demo/widget/spinkit/ripple.dart';
+
 /// index
 export 'package:flutter_shop_demo/res/index_res.dart';
 export 'package:flutter_shop_demo/provide/index_provide.dart';
 export 'package:flutter_shop_demo/router/index_router.dart';
+
 /// app common
 import '../app.dart';
 export 'package:flutter_shop_demo/common/app.dart';
 import 'package:flutter_shop_demo/common/utils/dialog_utils.dart';
+
 /// utils
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 /// widget
 import 'package:flutter_shop_demo/widget/spinkit/fading_circle.dart';
 
@@ -57,21 +62,18 @@ class Base {
 
   sp(double fontSize) => ScreenUtil.instance.setSp(fontSize);
 
-//  double get screenW => ScreenUtil.screenWidth;
-
   double get screenDpW => ScreenUtil.screenWidthDp;
-
-//  double get screenH => ScreenUtil.screenHeight;
 
   double get screenDpH => ScreenUtil.screenHeightDp;
 
-//  double get screenHalfW => screenW * 0.5;
-
   double get screenHalfDpW => screenDpW * 0.5;
 
-//  double get screenHalfH => screenH * 0.5;
-
   double get screenHalfDpH => screenDpH * 0.5;
+
+//  double get screenW => ScreenUtil.screenWidth;
+//  double get screenH => ScreenUtil.screenHeight;
+//  double get screenHalfW => screenW * 0.5;
+//  double get screenHalfH => screenH * 0.5;
 
   /// 安全区域的dp高度
   double get safeContentH =>
@@ -83,13 +85,10 @@ class Base {
 
   ///----------------------------------------------------
 
-  Widget get emptyCenterWidget => Center(
-        child: Text("内容空"),
-      );
+  Widget get emptyCenterWidget => Center(child: Text("内容空"));
 
-  Widget get emptyLoadingWidget => Center(
-    child: SpinKitFadingCircle(color: ResColors.text_dark),
-  );
+  Widget get emptyLoadingWidget =>
+      Center(child: SpinKitRipple(color: ResColors.app_main));
 
   /// msg：提示的文字，String类型。
   /// toastLength: 提示的样式，主要是长度，有两个值可以选择：Toast.LENGTH_SHORT ：短模式，就是比较短。Toast.LENGTH_LONG : 长模式，就是比较长。

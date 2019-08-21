@@ -27,7 +27,7 @@ class GoodsDetail extends BaseStatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    showProgress();
-    var _provide = Provider.of<GoodsDetailProvide>(context);
+//    var _provide = Provider.of<GoodsDetailProvide>(context);
 //    _provide.queryData4NetByGoodsId(goodsId);
     return new Scaffold(
       appBar: new AppBar(
@@ -37,7 +37,7 @@ class GoodsDetail extends BaseStatelessWidget {
           future: queryData4NetByGoodsId(goodsId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              dismissProgress();
+//              dismissProgress();
               var data = snapshot.data as GoodsDetailModel;
               printLog(data.toString());
               return Column(

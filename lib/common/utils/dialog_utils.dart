@@ -31,6 +31,7 @@ class DialogUtils {
       _progressDialog =
           new ProgressDialog(App.context, ProgressDialogType.Normal);
       _progressDialog.setMessage(msg);
+      _progressDialog.canCancel(false);
     }
     if (!_progressDialog.isShowing()) {
 //      _progressDialog.update(message: msg);

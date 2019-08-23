@@ -12,6 +12,7 @@ import 'package:flutter_shop_demo/model/goods_detail.dart';
 ///
 
 class GoodsDetail extends BaseStatelessWidget {
+
   /// 跳转本页面
   static Future start(BuildContext context, String goodsId) {
     return App.navigateTo(context, "$GoodsDetail",
@@ -30,16 +31,16 @@ class GoodsDetail extends BaseStatelessWidget {
 //    var _provide = Provider.of<GoodsDetailProvide>(context);
 //    _provide.queryData4NetByGoodsId(goodsId);
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("商品详情"),
+      appBar: AppBar(
+        title: Text("商品详情"),
       ),
       body: FutureBuilder(
           future: queryData4NetByGoodsId(goodsId),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
+          builder: (context, it) {
+
+            if (it.hasData) {
 //              dismissProgress();
-              var data = snapshot.data as GoodsDetailModel;
-              printLog(data.toString());
+              var data = it.data as GoodsDetailModel;
               return Column(
                 children: <Widget>[
                   RaisedButton(
@@ -49,7 +50,6 @@ class GoodsDetail extends BaseStatelessWidget {
                     child: Text("点击"),
                   ),
                   Text(data.data.goodInfo.goodsName),
-                  emptyLoadingWidget
                 ],
               );
             } else {
@@ -60,12 +60,16 @@ class GoodsDetail extends BaseStatelessWidget {
   }
 
   Future queryData4NetByGoodsId(String goodsId) {
+    printLog("queryData4NetByGoodsId---$goodsId");
     return HttpManager.instance
-        .post(url_goods_detail, data: {"goodId": goodsId}).then((it) {
-      var data = GoodsDetailModel.fromJsonMap(it);
+        .post(url_goods_detail, data: {"goodId": goodsId}).then((it) async {
+      var data = GoodsDetailModel.fromJson(it);
 //      if (data != null) {
 //        notifyListeners();
 //      }
+      printLog("delayed");
+      await Future.delayed(Duration(seconds: 5));
+      printLog("delayed return");
       return data;
     });
   }

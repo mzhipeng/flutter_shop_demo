@@ -22,7 +22,7 @@ class GoodsDetailProvide with ChangeNotifier {
   Future queryData4NetByGoodsId(String goodsId) {
     return HttpManager.instance
         .post(url_goods_detail, data: {"goodId": goodsId}).then((it) {
-      var data = GoodsDetailModel.fromJsonMap(it);
+      var data = GoodsDetailModel.fromJson(it);
       if (data != null) {
         notifyListeners();
       }

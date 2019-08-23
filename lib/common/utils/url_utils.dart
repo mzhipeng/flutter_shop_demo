@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// 兼容iOS 和 Android 的 打开URL
 ///
-/// @author: mzp
 ///
 class UrlUtils {
   /// 打开系统电话页面

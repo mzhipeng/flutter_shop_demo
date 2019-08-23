@@ -1,137 +1,149 @@
-class GoodsDetailModel {
+import 'package:json_annotation/json_annotation.dart';
+
+part 'goods_detail.g.dart';
+
+
+@JsonSerializable()
+class GoodsDetailModel extends Object {
+
+  @JsonKey(name: 'code')
   String code;
+
+  @JsonKey(name: 'message')
   String message;
-  GoodsDetail data;
 
-  GoodsDetailModel.fromJsonMap(Map<String, dynamic> map)
-      : code = map["code"],
-        message = map["message"],
-        data = GoodsDetail.fromJsonMap(map["data"]);
+  @JsonKey(name: 'data')
+  DataBean data;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> map = new Map<String, dynamic>();
-    map['code'] = code;
-    map['message'] = message;
-    map['data'] = map == null ? null : data.toJson();
-    return map;
-  }
+  GoodsDetailModel(this.code,this.message,this.data,);
+
+  factory GoodsDetailModel.fromJson(Map<String, dynamic> srcJson) => _$GoodsDetailModelFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$GoodsDetailModelToJson(this);
+
 }
 
-class GoodsDetail {
+
+@JsonSerializable()
+class DataBean extends Object {
+
+  @JsonKey(name: 'goodInfo')
   GoodInfo goodInfo;
+
+  @JsonKey(name: 'goodComments')
   List<GoodComments> goodComments;
+
+  @JsonKey(name: 'advertesPicture')
   AdvertesPicture advertesPicture;
 
-  GoodsDetail.fromJsonMap(Map<String, dynamic> map)
-      : goodInfo = GoodInfo.fromJsonMap(map["goodInfo"]),
-        goodComments = List<GoodComments>.from(
-            map["goodComments"].map((it) => GoodComments.fromJsonMap(it))),
-        advertesPicture = AdvertesPicture.fromJsonMap(map["advertesPicture"]);
+  DataBean(this.goodInfo,this.goodComments,this.advertesPicture,);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['goodInfo'] = goodInfo == null ? null : goodInfo.toJson();
-    data['goodComments'] = goodComments != null
-        ? this.goodComments.map((v) => v.toJson()).toList()
-        : null;
-    data['advertesPicture'] =
-        advertesPicture == null ? null : advertesPicture.toJson();
-    return data;
-  }
+  factory DataBean.fromJson(Map<String, dynamic> srcJson) => _$DataBeanFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$DataBeanToJson(this);
+
 }
 
-class GoodInfo {
+
+@JsonSerializable()
+class GoodInfo extends Object {
+
+  @JsonKey(name: 'image5')
   String image5;
+
+  @JsonKey(name: 'amount')
   int amount;
+
+  @JsonKey(name: 'image3')
   String image3;
+
+  @JsonKey(name: 'image4')
   String image4;
+
+  @JsonKey(name: 'goodsId')
   String goodsId;
+
+  @JsonKey(name: 'isOnline')
   String isOnline;
+
+  @JsonKey(name: 'image1')
   String image1;
+
+  @JsonKey(name: 'image2')
   String image2;
+
+  @JsonKey(name: 'goodsSerialNumber')
   String goodsSerialNumber;
+
+  @JsonKey(name: 'oriPrice')
   double oriPrice;
+
+  @JsonKey(name: 'presentPrice')
   double presentPrice;
+
+  @JsonKey(name: 'comPic')
   String comPic;
+
+  @JsonKey(name: 'state')
   int state;
+
+  @JsonKey(name: 'shopId')
   String shopId;
+
+  @JsonKey(name: 'goodsName')
   String goodsName;
+
+  @JsonKey(name: 'goodsDetail')
   String goodsDetail;
 
-  GoodInfo.fromJsonMap(Map<String, dynamic> map)
-      : image5 = map["image5"],
-        amount = map["amount"],
-        image3 = map["image3"],
-        image4 = map["image4"],
-        goodsId = map["goodsId"],
-        isOnline = map["isOnline"],
-        image1 = map["image1"],
-        image2 = map["image2"],
-        goodsSerialNumber = map["goodsSerialNumber"],
-        oriPrice = map["oriPrice"],
-        presentPrice = map["presentPrice"],
-        comPic = map["comPic"],
-        state = map["state"],
-        shopId = map["shopId"],
-        goodsName = map["goodsName"],
-        goodsDetail = map["goodsDetail"];
+  GoodInfo(this.image5,this.amount,this.image3,this.image4,this.goodsId,this.isOnline,this.image1,this.image2,this.goodsSerialNumber,this.oriPrice,this.presentPrice,this.comPic,this.state,this.shopId,this.goodsName,this.goodsDetail,);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['image5'] = image5;
-    data['amount'] = amount;
-    data['image3'] = image3;
-    data['image4'] = image4;
-    data['goodsId'] = goodsId;
-    data['isOnline'] = isOnline;
-    data['image1'] = image1;
-    data['image2'] = image2;
-    data['goodsSerialNumber'] = goodsSerialNumber;
-    data['oriPrice'] = oriPrice;
-    data['presentPrice'] = presentPrice;
-    data['comPic'] = comPic;
-    data['state'] = state;
-    data['shopId'] = shopId;
-    data['goodsName'] = goodsName;
-    data['goodsDetail'] = goodsDetail;
-    return data;
-  }
+  factory GoodInfo.fromJson(Map<String, dynamic> srcJson) => _$GoodInfoFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$GoodInfoToJson(this);
+
 }
 
-class GoodComments {
-  int score;
+
+@JsonSerializable()
+class GoodComments extends Object {
+
+  @JsonKey(name: 'SCORE')
+  int sCORE;
+
+  @JsonKey(name: 'comments')
   String comments;
+
+  @JsonKey(name: 'userName')
   String userName;
+
+  @JsonKey(name: 'discussTime')
   int discussTime;
 
-  GoodComments.fromJsonMap(Map<String, dynamic> map)
-      : score = map["SCORE"],
-        comments = map["comments"],
-        userName = map["userName"],
-        discussTime = map["discussTime"];
+  GoodComments(this.sCORE,this.comments,this.userName,this.discussTime,);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['SCORE'] = score;
-    data['comments'] = comments;
-    data['userName'] = userName;
-    data['discussTime'] = discussTime;
-    return data;
-  }
+  factory GoodComments.fromJson(Map<String, dynamic> srcJson) => _$GoodCommentsFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$GoodCommentsToJson(this);
+
 }
 
-class AdvertesPicture {
-  String pictureAddress;
-  String toPlace;
 
-  AdvertesPicture.fromJsonMap(Map<String, dynamic> map)
-      : pictureAddress = map["PICTURE_ADDRESS"],
-        toPlace = map["TO_PLACE"];
+@JsonSerializable()
+class AdvertesPicture extends Object {
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['PICTURE_ADDRESS'] = pictureAddress;
-    data['TO_PLACE'] = toPlace;
-    return data;
-  }
+  @JsonKey(name: 'PICTURE_ADDRESS')
+  String pICTUREADDRESS;
+
+  @JsonKey(name: 'TO_PLACE')
+  String tOPLACE;
+
+  AdvertesPicture(this.pICTUREADDRESS,this.tOPLACE,);
+
+  factory AdvertesPicture.fromJson(Map<String, dynamic> srcJson) => _$AdvertesPictureFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$AdvertesPictureToJson(this);
+
 }
+
+

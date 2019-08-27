@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 /// widget
-import 'easy_refresh_diy.dart';
+import '../easy_refresh_diy.dart';
 
 /// common
-import '../common/base/base_widget.dart';
-import '../common/net/api.dart';
+import '../../common/base/base_widget.dart';
+import '../../common/net/api.dart';
 
 /// model
-import '../model/home_page_category_model.dart';
-import '../model/home_page_category_item_model.dart';
+import '../../model/home_page_category_model.dart';
+import '../../model/home_page_category_item_model.dart';
 
 /// create by MZP 2019-08-16 16:01
 ///

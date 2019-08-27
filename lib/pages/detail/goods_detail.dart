@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 /// common
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
+
 /// model
 import 'package:flutter_shop_demo/model/goods_detail.dart';
+
+///
+import 'package:flutter_shop_demo/widget/view_state.dart';
 
 /// create by mzp 2019年08月20日10:58:09
 ///
@@ -12,7 +16,6 @@ import 'package:flutter_shop_demo/model/goods_detail.dart';
 ///
 
 class GoodsDetail extends BaseStatelessWidget {
-
   /// 跳转本页面
   static Future start(BuildContext context, String goodsId) {
     return App.navigateTo(context, "$GoodsDetail",
@@ -34,27 +37,21 @@ class GoodsDetail extends BaseStatelessWidget {
       appBar: AppBar(
         title: Text("商品详情"),
       ),
-      body: FutureBuilder(
+      body: FutureState<Widget>(
+          loadingType: ViewState.shimmer,
           future: queryData4NetByGoodsId(goodsId),
-          builder: (context, it) {
-
-            if (it.hasData) {
-//              dismissProgress();
-              var data = it.data as GoodsDetailModel;
-              return Column(
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      showProgress();
-                    },
-                    child: Text("点击"),
-                  ),
-                  Text(data.data.goodInfo.goodsName),
-                ],
-              );
-            } else {
-              return emptyLoadingWidget;
-            }
+          successBuilder: (context, it) {
+            return Column(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    showProgress();
+                  },
+                  child: Text("点击"),
+                ),
+                Text(it.data.data.goodInfo.goodsName),
+              ],
+            );
           }),
     );
   }

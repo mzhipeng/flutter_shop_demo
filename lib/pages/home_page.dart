@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// widget
 import 'package:flutter_shop_demo/widget/easy_refresh_diy.dart';
-import 'package:flutter_shop_demo/widget/home_page_widget.dart';
+import 'package:flutter_shop_demo/widget/layout/home_page_widget.dart';
 import 'package:flutter_shop_demo/widget/gridview_img_with_text.dart';
 
 /// app common
@@ -28,15 +28,17 @@ class HomePageState extends BaseState<HomePage> {
   EasyRefreshController _refreshConl = EasyRefreshController();
   int currentPage = 1;
   List<Map> goodsList = [];
+  var bannerContentFuture;
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('百姓生活+'),
       ),
       body: FutureBuilder(
-        future: getBannerContent(),
+        future: bannerContentFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data;
@@ -110,6 +112,7 @@ class HomePageState extends BaseState<HomePage> {
 
   @override
   void initState() {
+    bannerContentFuture = getBannerContent();
     super.initState();
   }
 

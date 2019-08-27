@@ -1,11 +1,13 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-///
+/// common
+import 'app.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/utils/time_utils.dart';
+/// index
+import 'package:flutter_shop_demo/router/index_router.dart';
 ///
-import 'package:flutter_shop_demo/provide/index_provide.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 /// create by MZP 2019-08-09 10:56
 ///
@@ -15,9 +17,11 @@ import 'package:flutter_shop_demo/provide/index_provide.dart';
 ///
 
 class GlobalConfig {
-  static void init(BuildContext context) {
+
+  static void init(BuildContext context, {Router router}) {
     initBaseUrl();
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    App.context = context;
   }
 
   static void initBaseUrl() {
@@ -30,4 +34,8 @@ class GlobalConfig {
         headers: {"": ""}));
   }
 
+  static void initRouter(Router router) {
+    Routers.initRouters(router);
+    App.router = router;
+  }
 }

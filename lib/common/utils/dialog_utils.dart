@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_demo/widget/progress_dialog.dart';
+
+///
+import '../app.dart';
 
 /// create by MZP 2019-08-12 20:24
 ///
@@ -6,8 +10,9 @@ import 'package:flutter/material.dart';
 ///
 /// @author: mzp
 ///
-class DialogUtils {
+ProgressDialog _progressDialog;
 
+class DialogUtils {
   /// 显示简单的提示类型对话框
   static void showHint(BuildContext context, String content) {
     showDialog(
@@ -18,5 +23,25 @@ class DialogUtils {
             content: Text(content),
           );
         });
+  }
+
+  /// 显示简单的加载类型对话框
+  static void showProgress(String msg) {
+    if (_progressDialog == null) {
+      _progressDialog =
+          new ProgressDialog(App.context, ProgressDialogType.Normal);
+      _progressDialog.setMessage(msg);
+      _progressDialog.canCancel(false);
+    }
+    if (!_progressDialog.isShowing()) {
+//      _progressDialog.update(message: msg);
+      _progressDialog.show();
+    }
+  }
+
+  static void dismissProgress() {
+    if (_progressDialog != null) {
+      _progressDialog.hide();
+    }
   }
 }

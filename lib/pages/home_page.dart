@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 /// widget
 import 'package:flutter_shop_demo/widget/easy_refresh_diy.dart';
-import 'package:flutter_shop_demo/widget/home_page_widget.dart';
+import 'package:flutter_shop_demo/widget/layout/home_page_widget.dart';
 import 'package:flutter_shop_demo/widget/gridview_img_with_text.dart';
 
 /// app common
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
+
+/// page
+import 'detail/goods_detail.dart';
 
 /// create by DDYX 2019-08-08 16:49
 ///
@@ -25,15 +28,17 @@ class HomePageState extends BaseState<HomePage> {
   EasyRefreshController _refreshConl = EasyRefreshController();
   int currentPage = 1;
   List<Map> goodsList = [];
+  var bannerContentFuture;
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('百姓生活+'),
       ),
       body: FutureBuilder(
-        future: getBannerContent(),
+        future: bannerContentFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data;
@@ -46,9 +51,9 @@ class HomePageState extends BaseState<HomePage> {
             String itemHeaderPic1 =
                 data['data']['floor1Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
             String itemHeaderPic2 =
-                data['data']['floor2Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+                data['data']['floor2Pic']['PICTURE_ADDRESS']; /*楼层2的标题图片*/
             String itemHeaderPic3 =
-                data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层1的标题图片*/
+                data['data']['floor3Pic']['PICTURE_ADDRESS']; /*楼层3的标题图片*/
 
             return EasyRefresh(
               footer: MyFooter(),
@@ -107,6 +112,7 @@ class HomePageState extends BaseState<HomePage> {
 
   @override
   void initState() {
+    bannerContentFuture = getBannerContent();
     super.initState();
   }
 
@@ -169,7 +175,9 @@ class HomePageState extends BaseState<HomePage> {
     if (goodsList.length > 0) {
       List<Widget> widgetList = goodsList.map((it) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            GoodsDetail.start(context, it["goodsId"]);
+          },
           child: Container(
             color: Colors.white,
             padding: EdgeInsets.all(4),

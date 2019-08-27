@@ -32,8 +32,8 @@ class MyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<HomePageCarProvide>(builder: (context, provide, child) {
-        return Text("${provide.value}");
+      child: Consumer<HomePageCarProvide>(builder: (context, p, child) {
+        return Text("${p.value}");
       }),
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
 /// widget
-import 'package:flutter_shop_demo/widget/home_page_category.dart';
+import 'package:flutter_shop_demo/widget/layout/home_page_category.dart';
 /// model
 import 'package:flutter_shop_demo/model/home_page_category_model.dart';
 

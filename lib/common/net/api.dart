@@ -30,7 +30,7 @@ const url_home_bannerContext = 'wxmini/homePageContent'; // 商家首页信息
 const url_home_goods = 'wxmini/homePageBelowConten'; //商城首页热卖商品
 const url_home_category = 'wxmini/getCategory'; //首页-商品类别信息
 const url_home_category_goods = 'wxmini/getMallGoods'; //首页-商品类别-商品列表
-const getGoodDetailById = 'wxmini/getGoodDetailById'; //商品详细信息列表
+const url_goods_detail = 'wxmini/getGoodDetailById'; //商品详细信息列表
 
 class HttpManager {
   Dio _dio = new Dio();
@@ -50,19 +50,33 @@ class HttpManager {
   }
 
   Future post(String path, {data}) async {
+    print("---");
+    print("POST =======================================>: POST START");
+    print("PATH =============>: $path");
+    print("DATA =============>: ${data.toString()}");
+    print("POST =======================================>: POST END");
+    print("---");
     try {
       var response = await _dio.post(path, data: data);
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.data.toString());
-        print("response =============>: start");
+        print("---");
+        print("response =======================================>: response START");
         print(jsonData);
-        print("response =============>: end");
+        print("response =======================================>: response END");
+        print("---");
         return jsonData;
       } else {
-        print("ERROR=============>:访问异常");
+        print("---");
+        print("POST =======================================>: POST ERROR");
+        print("服务器访问异常");
+        print("---");
       }
     } catch (e) {
-      print("ERROR=============>$e");
+      print("---");
+      print("POST ERROR =======================================>: POST ERROR");
+      print("---");
+      print(e);
     }
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-///
+/// common
 import 'package:flutter_shop_demo/common/base/base_widget.dart';
 import 'package:flutter_shop_demo/common/net/api.dart';
 import 'package:flutter_shop_demo/common/utils/url_utils.dart';
+/// page
+import 'package:flutter_shop_demo/pages/detail/goods_detail.dart';
 
 ///
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -29,9 +31,14 @@ class HomePageSwiper extends BaseStatelessWidget {
         pagination: SwiperPagination(),
         autoplay: true,
         itemBuilder: (BuildContext context, int index) {
-          return Image.network(
-            "${itemList[index]["image"]}",
-            fit: BoxFit.fill,
+          return InkWell(
+            onTap: (){
+              GoodsDetail.start(App.context, itemList[index]["goodsId"]);
+            },
+            child: Image.network(
+              "${itemList[index]["image"]}",
+              fit: BoxFit.fill,
+            ),
           );
         },
       ),
@@ -86,7 +93,9 @@ class HomePageRecommend extends BaseStatelessWidget {
   /// 推荐商品 列表 item
   Widget _createItem(index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoodsDetail.start(App.context, items[index]["goodsId"]);
+      },
       child: Container(
         width: w(250),
         height: h(330),
@@ -190,7 +199,9 @@ class HomePageItem extends BaseStatelessWidget {
     return Container(
       width: screenHalfDpW,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          GoodsDetail.start(App.context, goods["goodsId"]);
+        },
         child: Image.network(goods["image"]),
       ),
     );
@@ -257,7 +268,9 @@ class HomePageHotItemState extends BaseState<HomePageHotItem> {
     if (goodsList.length > 0) {
       List<Widget> widgetList = goodsList.map((it) {
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            GoodsDetail.start(context, it["goodsId"]);
+          },
           child: Container(
             color: Colors.white,
             padding: EdgeInsets.all(4),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_demo/provide/home_provide.dart';
-import 'package:flutter_shop_demo/provide/index_provide.dart';
+import 'package:provider/provider.dart';
 
 /// create by DDYX 2019-08-08 16:51
 ///

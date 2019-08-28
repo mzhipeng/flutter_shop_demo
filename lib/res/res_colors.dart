@@ -35,7 +35,11 @@ class ResColors {
   static const Color green_62 = Color(0xff626262); //<!--204-->
   static const Color green_e5 = Color(0xffe5e5e5); //<!--204-->
 
-  static const Color hint_success = Color(0xffe5e5e5);
-  static const Color hint_error = Color(0xffe5e5e5);
-  static const Color error_rad = Color(0xffe5e5e5);
+  static const Color hint_green = Color(0xff09BB07);
+  static const Color hint_blue_link = Color(0xff576b95);
+  static const Color hint_blue_prompt = Color(0xff007BFA);
+  static const Color hint_rad_error = Color(0xffe64340);
+  static const Color hint_brown = Color(0xff8B7765);
+
+
 }

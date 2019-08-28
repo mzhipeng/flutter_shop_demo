@@ -49,6 +49,8 @@ dependencies:
 
   # 闪屏
   shimmer: ^1.0.0
+  device_info: ^0.4.0+1
+  package_info: ^0.4.0+3
 
 dev_dependencies:
   flutter_test:

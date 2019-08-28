@@ -7,8 +7,9 @@ import 'package:flutter_shop_demo/common/net/api.dart';
 /// model
 import 'package:flutter_shop_demo/model/goods_detail.dart';
 
-///
+/// widget
 import 'package:flutter_shop_demo/widget/view_state.dart';
+import 'package:flutter_shop_demo/widget/layout/goods_detail_page.dart';
 
 /// create by mzp 2019年08月20日10:58:09
 ///
@@ -24,50 +25,35 @@ class GoodsDetail extends BaseStatelessWidget {
 
   final String goodsId;
 
-//  GoodsDetailProvide _provide;
-
   GoodsDetail(this.goodsId);
+
+  GoodsDetailProvide provider;
+  var queryData4NetByGoodsId;
 
   @override
   Widget build(BuildContext context) {
-//    showProgress();
-//    var _provide = Provider.of<GoodsDetailProvide>(context);
-//    _provide.queryData4NetByGoodsId(goodsId);
+    if (provider == null) {
+      provider = Provider.of<GoodsDetailProvide>(context);
+      queryData4NetByGoodsId = provider.queryData4NetByGoodsId(goodsId);
+    }
+
     return new Scaffold(
       appBar: AppBar(
         title: Text("商品详情"),
       ),
       body: FutureState<Widget>(
           loadingType: ViewState.shimmer,
-          future: queryData4NetByGoodsId(goodsId),
+          future: queryData4NetByGoodsId,
           successBuilder: (context, it) {
-            return Column(
+            return Stack(
               children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    showProgress();
-                  },
-                  child: Text("点击"),
+                SingleChildScrollView(
+                  child: TopInfoWidget(),
                 ),
-                Text(it.data.data.goodInfo.goodsName),
+
               ],
             );
           }),
     );
-  }
-
-  Future queryData4NetByGoodsId(String goodsId) {
-    printLog("queryData4NetByGoodsId---$goodsId");
-    return HttpManager.instance
-        .post(url_goods_detail, data: {"goodId": goodsId}).then((it) async {
-      var data = GoodsDetailModel.fromJson(it);
-//      if (data != null) {
-//        notifyListeners();
-//      }
-      printLog("delayed");
-      await Future.delayed(Duration(seconds: 5));
-      printLog("delayed return");
-      return data;
-    });
   }
 }

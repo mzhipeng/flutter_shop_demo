@@ -31,6 +31,13 @@ const url_home_goods = 'wxmini/homePageBelowConten'; //商城首页热卖商品
 const url_home_category = 'wxmini/getCategory'; //首页-商品类别信息
 const url_home_category_goods = 'wxmini/getMallGoods'; //首页-商品类别-商品列表
 const url_goods_detail = 'wxmini/getGoodDetailById'; //商品详细信息列表
+//
+//const url_home_bannerContext = '/xhr/index/index.json'; // 商家首页信息
+//const url_home_goods = '/xhr/rcmd/index.json'; //商城首页热卖商品
+//const url_home_category = '/xhr/list/category.json'; //首页-商品类别信息
+//const url_home_category_goods = '/xhr/item/detail.json'; //首页-商品类别-商品列表
+//const url_goods_detail = '/xhr/rcmd/itemDetail.json'; //商品详细信息列表
+
 
 class HttpManager {
   Dio _dio = new Dio();

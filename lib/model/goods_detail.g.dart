@@ -12,7 +12,7 @@ GoodsDetailModel _$GoodsDetailModelFromJson(Map<String, dynamic> json) {
     json['message'] as String,
     json['data'] == null
         ? null
-        : DataBean.fromJson(json['data'] as Map<String, dynamic>),
+        : GoodsDataBean.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
@@ -23,8 +23,8 @@ Map<String, dynamic> _$GoodsDetailModelToJson(GoodsDetailModel instance) =>
       'data': instance.data,
     };
 
-DataBean _$DataBeanFromJson(Map<String, dynamic> json) {
-  return DataBean(
+GoodsDataBean _$DataBeanFromJson(Map<String, dynamic> json) {
+  return GoodsDataBean(
     json['goodInfo'] == null
         ? null
         : GoodInfo.fromJson(json['goodInfo'] as Map<String, dynamic>),
@@ -39,7 +39,7 @@ DataBean _$DataBeanFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$DataBeanToJson(DataBean instance) => <String, dynamic>{
+Map<String, dynamic> _$DataBeanToJson(GoodsDataBean instance) => <String, dynamic>{
       'goodInfo': instance.goodInfo,
       'goodComments': instance.goodComments,
       'advertesPicture': instance.advertesPicture,

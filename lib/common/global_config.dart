@@ -29,6 +29,8 @@ class GlobalConfig {
 //const serviceUrl= 'http://test.baixingliangfan.cn/baixing/';
     HttpManager.instance.init(new HttpOptionsModel(
         "http://v.jspang.com:8088/baixing/",
+//        "https://miniapp.you.163.com",
+//        "http://baixingliangfan.cn/baixing/",
         connectTimeout: TimeUtils.minutes,
         receiveTimeout: TimeUtils.minutes,
         headers: {"": ""}));

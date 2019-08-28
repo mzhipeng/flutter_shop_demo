@@ -13,10 +13,9 @@ import 'package:flutter_shop_demo/model/goods_detail.dart';
 /// @author: mzp
 ///
 class GoodsDetailProvide with ChangeNotifier {
+  GoodsDataBean _goodsDataBean;
 
-  GoodsDetailModel _goodsDetailModel;
-
-  get goodsDetailModel => _goodsDetailModel;
+  GoodsDataBean get data => _goodsDataBean;
 
   /// 根据goodsId 查询商品信息
   Future queryData4NetByGoodsId(String goodsId) {
@@ -24,6 +23,7 @@ class GoodsDetailProvide with ChangeNotifier {
         .post(url_goods_detail, data: {"goodId": goodsId}).then((it) {
       var data = GoodsDetailModel.fromJson(it);
       if (data != null) {
+        _goodsDataBean = data.data;
         notifyListeners();
       }
       return data;

@@ -30,8 +30,7 @@ class CategoryRightTitle extends BaseStatelessWidget {
   Widget _createRightTitle() {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(width: 1, color: ResColors.gray))),
+          color: Colors.white, border: Border(bottom: BorderSide(width: 1, color: ResColors.gray))),
       width: screenDpW - w(180),
       height: h(80),
       child: Row(children: <Widget>[
@@ -39,8 +38,7 @@ class CategoryRightTitle extends BaseStatelessWidget {
           padding: EdgeInsets.only(left: 10, right: 10),
           child: InkWell(
             onTap: () {
-              var selectTitle =
-                  _homePageCategoryProvide.categoryRightTitleList[0];
+              var selectTitle = _homePageCategoryProvide.categoryRightTitleList[0];
 
               _homePageCategoryProvide.refreshRightSelectIndex(-1, selectTitle);
               queryData(true, selectTitle);
@@ -68,8 +66,8 @@ class CategoryRightTitle extends BaseStatelessWidget {
                 scrollDirection: Axis.horizontal, // 设置水平滚动
                 itemCount: p.categoryRightTitleList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return _createItem(index, p.rightSelectIndex == index,
-                      p.categoryRightTitleList[index]);
+                  return _createItem(
+                      index, p.rightSelectIndex == index, p.categoryRightTitleList[index]);
                 },
               );
             },
@@ -151,8 +149,7 @@ class CategoryRightContent extends BaseStatelessWidget {
                     controller: scrollController,
                     itemCount: p.categoryGoodsList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _createItem(
-                          _rightImgWidth, p.categoryGoodsList[index]);
+                      return _createItem(_rightImgWidth, p.categoryGoodsList[index]);
                     },
                   ),
                 );
@@ -164,12 +161,8 @@ class CategoryRightContent extends BaseStatelessWidget {
   /// 列表item
   Widget _createItem(double imgWidth, CategoryGoods it) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-        color: ResColors.gray,
-        width: 2,
-      ))),
+      decoration:
+          BoxDecoration(border: Border(bottom: BorderSide(color: ResColors.gray, width: 2))),
       child: Row(
         children: <Widget>[
           Container(
@@ -206,8 +199,7 @@ class CategoryRightContent extends BaseStatelessWidget {
             children: <Widget>[
               Text(
                 "￥${it.presentPrice}",
-                style: TextStyle(
-                    color: ResColors.app_main, fontSize: ResSize.text_content),
+                style: TextStyle(color: ResColors.app_main, fontSize: ResSize.text_content),
               ),
               Text(
                 "￥${it.oriPrice}",
@@ -246,9 +238,7 @@ class CategoryRightContent extends BaseStatelessWidget {
       'categorySubId': _homePageCategoryProvide.rightSelectTitle.mallSubId,
       'page': _homePageCategoryProvide.currentRightPage
     };
-    return HttpManager.instance
-        .post(url_home_category_goods, data: data)
-        .then((it) {
+    return HttpManager.instance.post(url_home_category_goods, data: data).then((it) {
       var data = HomeCategoryItemModel.fromJsonMap(it);
       if (data.goodsList.isEmpty) {
         show("没有更多数据了");
